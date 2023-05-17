@@ -2,145 +2,151 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Word and Character Counter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Test</title>
 
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-			font-family: Verdana, "Geneva", Tahoma,"Algerian", sans-serif;
-			background-image: url('https://blog-cdn.reedsy.com/directories/admin/featured_image/261/large_e6b23d3a11f2bf0e6cf36313816fe91a.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-		}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Verdana, "Geneva", Tahoma, "Algerian", sans-serif;
+      background-image: url('https://blog-cdn.reedsy.com/directories/admin/featured_image/261/large_e6b23d3a11f2bf0e6cf36313816fe91a.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
 
-		body {
-			background-color: #f4f4f4;
-		}
+    body {
+      background-color: #f4f4f4;
+    }
 
-		.container {
-			width: 100%;
-			height: 100vh;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			
-		}
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-		.heading {
+    .heading {
+      background-color: #ffffff;
+      border: 2px solid #e8e8e8;
+      border-radius: 25px;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      background: rgba(210, 205, 205, 0.756);
+    }
+
+    h1 {
+      color: #ff4444;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background: rgba(210, 205, 205, 0.756);
+    }
+
+    #typingArea {
+      background-color: #ffffff;
+      border: 2px solid #e8e8e8;
+      border-radius: 25px;
+      color: #0d0c0c;
+      font-size: 20px;
+      font-weight: bold;
+      height: 200px;
+      margin-bottom: 20px;
+      padding: 10px;
+      resize: none;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background: rgba(210, 205, 205, 0.756);
+    }
+
+    #typingArea:focus {
+      border-color: #ff4444;
+    }
+
+    #wpm {
+      color: #ff4444;
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: underline;
+      background: rgba(210, 205, 205, 0.756);
+    }
+#word,
+#char {
+	color: #ff4444;
+	font-size: 25px;
+	font-weight: bold;
+	text-decoration: underline;
+	background: rgba(210, 205, 205, 0.756);
+	}
+.result {
 			background-color: #ffffff;
 			border: 2px solid #e8e8e8;
 			border-radius: 25px;
-			padding: 10px 20px;
-			margin-bottom: 20px;
-			text-align: center;
-			max-width: 500px;
-			width: 100%;
-			background: rgba(210, 205, 205, 0.756);
-		}
-
-		h1 {
-			color: #ff4444;
-			font-size: 30px;
-			font-weight: bold;
-			margin-bottom: 10px;
-			background: rgba(210, 205, 205, 0.756);
-		}
-
-		h3 {
 			color: #333333;
 			font-size: 20px;
 			font-weight: bold;
-			background: rgba(210, 205, 205, 0.756);
-		}
-
-		#area {
-			background-color: #ffffff;
-			border: 2px solid #e8e8e8;
-			border-radius: 25px;
-			color: #0d0c0c;
-			font-size: 20px;
-			font-weight: bold;
-			height: 200px;
-			margin-bottom: 20px;
-			padding: 10px;
-			resize: none;
-			width: 100%;
-			outline: none;
-			transition: border-color 0.3s ease;
-			background: rgba(210, 205, 205, 0.756);
-		}
-
-		#area:focus {
-			border-color: #ff4444;
-		}
-
-		.result {
-			background-color: #ffffff;
-			border: 2px solid #e8e8e8;
-			border-radius: 25px;
-			color: #333333;
-			font-size: 20px;
-			font-weight: bold;
 			padding: 10px;
 			max-width: 500px;
 			width: 100%;
 			text-align: center;
 			background: rgba(210, 205, 205, 0.756);
 		}
-
-		#word,
-		#char {
-			color: #ff4444;
-			font-size: 25px;
-			font-weight: bold;
-			text-decoration: underline;
-			background: rgba(210, 205, 205, 0.756);
-		}
-	</style>
+  </style>
 </head>
 
 <body>
-	<div class="container">
-		<div class="heading">
-			<h1>WORD AND CHARACTER COUNTER</h1>
-			
-		</div>
-		<textarea id="area" placeholder="Start typing..."></textarea>
-		<div class="result">
-			<span id="word">0</span> Words and <span id="char">0</span> Characters
-		</div>
-	</div>
-	<script>
-let area = document.getElementById('area');
-		let char = document.getElementById('char');
-		let word = document.getElementById('word');
+  <div class="container">
+    <div class="heading">
+      <h1>Word and Character Counter</h1>
+    </div>
+    <textarea id="typingArea" placeholder="Type the given text here..."></textarea>
+    <div id="wpm">0 WPM</div>
+    <div class="result">
+  <span id="word">0</span> Words and <span id="char">0</span> Characters
+</div>
+  </div>
 
-		area.addEventListener('input', function () {
-			// Count char
-			let content = this.value;
-			char.textContent = content.length;
+  <script>
+    let typingArea = document.getElementById('typingArea');
+    let wpmElement = document.getElementById('wpm');
+    let char = document.getElementById('char');
+    let word = document.getElementById('word');
+    let startTimestamp, endTimestamp;
 
-			// remove empty spaces 
-			content.trim();
-			console.log(content);
+    typingArea.addEventListener('input', function () {
+      if (!startTimestamp) {
+        startTimestamp = Date.now();
+      }
 
-			let wordList = content.split(/\s/);
+      // Count words
+      let content = this.value.trim();
+      let wordList = content.split(/\s/);
+      let words = wordList.filter(function (element) {
+        return element !== "";
+      });
+      let wordCount = words.length;
+      let charCount = content.length;
 
-			// Remove spaces from between words
-			let words = wordList.filter(function (element) {
-				return element != "";
-			});
+      // Update word and character counts
+      word.textContent = wordCount;
+      char.textContent = charCount;
 
-			// count words
-			word.textContent = words.length;
-		});
-	</script>
+      let elapsedSeconds = Math.floor((Date.now() - startTimestamp) / 1000);
+      let wpm = Math.floor((wordCount / elapsedSeconds) * 60);
+
+      // Update word count and WPM
+      wpmElement.textContent = wpm + " WPM";
+    });
+  </script>
 </body>
 
 </html>
