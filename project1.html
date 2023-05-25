@@ -8,8 +8,8 @@
 
   <style>
     * {
-      margin: 0;
-      padding: 0;
+      margin: 5px;
+      padding: 8px;
       box-sizing: border-box;
       font-family: Verdana, "Geneva", Tahoma, "Algerian", sans-serif;
       background-image: url('https://blog-cdn.reedsy.com/directories/admin/featured_image/261/large_e6b23d3a11f2bf0e6cf36313816fe91a.jpg');
@@ -79,7 +79,7 @@
       background: rgba(210, 205, 205, 0.756);
       border-radius:10px;
     }
-#word,
+#word,#vowel,#consonant,#number,#specialChar,
 #char {
 	color: #ff4444;
 	font-size: 25px;
@@ -100,6 +100,21 @@
 			text-align: center;
 			background: rgba(210, 205, 205, 0.756);
 		}
+#vowel-consonant-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.vowel-consonant {
+  background-color: #ffffff;
+  border: 2px solid #e8e8e8;
+  border-radius: 25px;
+  font-weight:bold;
+  padding: 10px;
+  text-align: center;
+  background: rgba(210, 205, 205, 0.756);
+}
   </style>
 </head>
 
@@ -111,8 +126,21 @@
     <textarea id="typingArea" placeholder="Type the given text here..."></textarea>
     <div id="wpm">0 WPM</div>
     <div class="result">
-  <span id="word">0</span> Words and <span id="char">0</span> Characters
+  <span id="word">0</span> WORDS AND <span id="char">0</span> CHARACTERS
 </div>
+<div id="vowel-consonant-container">
+  <div class="vowel-consonant">
+    <span id="vowel">0</span> VOWELS
+  </div>
+  <div class="vowel-consonant">
+    <span id="consonant">0</span> CONSONANTS
+  </div>
+  <div class="vowel-consonant">
+  <span id="number">0</span> NUMBERS
+  </div> 
+  <div class="vowel-consonant">
+  <span id="specialChar">0</span> SPECIAL CHARACTERS
+  </div>
   </div>
 
   <script>
@@ -136,9 +164,24 @@
       let wordCount = words.length;
       let charCount = content.length;
 
-      // Update word and character counts
-      word.textContent = wordCount;
-      char.textContent = charCount;
+        // Count vowels and consonants
+  let vowels = content.match(/[aeiouAEIOU]/gi);
+  let vowelCount = vowels ? vowels.length : 0;
+  let consonantCount = charCount - vowelCount;
+        // Count numbers and special characters
+  let numbers = content.match(/\d/g);
+  let numberCount = numbers ? numbers.length : 0;
+
+  let specialChars = content.match(/[^\w\s]/g);
+  let specialCharCount = specialChars ? specialChars.length : 0;
+
+  // Update word, character, vowel, and consonant counts
+  word.textContent = wordCount;
+  char.textContent = charCount;
+  vowel.textContent = vowelCount;
+  consonant.textContent = consonantCount;
+  number.textContent = numberCount;
+  specialChar.textContent = specialCharCount;
 
       let elapsedSeconds = Math.floor((Date.now() - startTimestamp) / 1000);
       let wpm = Math.floor((wordCount / elapsedSeconds) * 60);
