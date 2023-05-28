@@ -19,7 +19,7 @@
     }
 
     body {
-      background-color: #f4f4f4;
+      background-color: #f8f5f5;
     }
 
     .container {
@@ -32,9 +32,9 @@
     }
 
     .heading {
-      background-color: #ffffff;
+      background-color: rgba(210, 205, 205, 0.756);
       border: 2px solid #e8e8e8;
-      border-radius: 25px;
+      border-radius: 225px;
       padding: 10px 20px;
       margin-bottom: 20px;
       text-align: center;
@@ -48,7 +48,7 @@
       font-size: 30px;
       font-weight: bold;
       margin-bottom: 10px;
-      background: rgba(210, 205, 205, 0.756);
+      background: rgba(210, 205, 205, 0);
     }
 
     #typingArea {
@@ -63,8 +63,7 @@
       padding: 10px;
       resize: none;
       width: 100%;
-      outline: none;
-      transition: border-color 0.3s ease;
+      outline: none;     
       background: rgba(210, 205, 205, 0.756);
     }
 
@@ -74,9 +73,9 @@
 
     #wpm {
       color: #ff4444;
-      font-size: 30px;
+      font-size: 20px;
       font-weight: bold;
-      background: rgba(210, 205, 205, 0.756);
+      background: rgba(210, 205, 205, 0.678);
       border-radius:10px;
     }
 #word,#vowel,#consonant,#number,#specialChar,
@@ -85,7 +84,7 @@
 	font-size: 25px;
 	font-weight: bold;
 	text-decoration: underline;
-	background: rgba(210, 205, 205, 0.756);
+	background: rgba(210, 205, 205, 0.005);
 	}
 .result {
 			background-color: #ffffff;
@@ -103,7 +102,8 @@
 #vowel-consonant-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 1px;
+  
 }
 
 .vowel-consonant {
@@ -127,6 +127,11 @@
     <div id="wpm">0 WPM</div>
     <div class="result">
   <span id="word">0</span> WORDS AND <span id="char">0</span> CHARACTERS
+  <div>
+    <label for="targetWord">Frequency Target Word:</label>
+    <input type="text" id="targetWord" placeholder="Enter target word">
+  </div>
+  <div id="wordFrequency">0</div>
 </div>
 <div id="vowel-consonant-container">
   <div class="vowel-consonant">
@@ -149,6 +154,9 @@
     let char = document.getElementById('char');
     let word = document.getElementById('word');
     let startTimestamp, endTimestamp;
+    let wordFrequency = {};
+    let targetWordInput = document.getElementById('targetWord');
+    let frequencyElement = document.getElementById('wordFrequency');
 
     typingArea.addEventListener('input', function () {
       if (!startTimestamp) {
@@ -166,8 +174,9 @@
 
         // Count vowels and consonants
   let vowels = content.match(/[aeiouAEIOU]/gi);
+  let consonants = content.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi);
   let vowelCount = vowels ? vowels.length : 0;
-  let consonantCount = charCount - vowelCount;
+  let consonantCount = consonants ? consonants.length : 0;
         // Count numbers and special characters
   let numbers = content.match(/\d/g);
   let numberCount = numbers ? numbers.length : 0;
@@ -183,12 +192,45 @@
   number.textContent = numberCount;
   specialChar.textContent = specialCharCount;
 
+   // Update word frequency
+   updateWordFrequency(words);
+
       let elapsedSeconds = Math.floor((Date.now() - startTimestamp) / 1000);
       let wpm = Math.floor((wordCount / elapsedSeconds) * 60);
 
       // Update word count and WPM
       wpmElement.textContent = wpm + " WPM";
+
+      targetWordInput.addEventListener('input', function () {
+  updateWordFrequencyDisplay();
+});
+
+function updateWordFrequency(words) {
+  // Reset word frequency on each input change
+  wordFrequency = {};
+
+  // Count the frequency of each word
+  words.forEach(function (word) {
+    if (word.trim() !== "") {
+      if (wordFrequency.hasOwnProperty(word)) {
+        wordFrequency[word]++;
+      } else {
+        wordFrequency[word] = 1;
+      }
+    }
+  });
+
+  // Update the word frequency display
+  updateWordFrequencyDisplay();
+}
+
+function updateWordFrequencyDisplay() {
+  let targetWord = targetWordInput.value.trim();
+  let frequency = wordFrequency.hasOwnProperty(targetWord) ? wordFrequency[targetWord] : 0;
+  frequencyElement.textContent = frequency;
+}
     });
+    
   </script>
 </body>
 
