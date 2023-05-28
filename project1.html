@@ -64,7 +64,7 @@
       resize: none;
       width: 100%;
       outline: none;     
-      background: rgba(210, 205, 205, 0.756);
+      background: rgba(210, 205, 205, 0.785);
     }
 
     #typingArea:focus {
@@ -99,6 +99,15 @@
 			text-align: center;
 			background: rgba(210, 205, 205, 0.756);
 		}
+#frequency {
+	background: rgba(210, 205, 205, 0);
+}
+#targetWord{
+	background:#f5e9e9d4
+}
+#freqcontainer {
+	background: #d2caca00;
+}
 #vowel-consonant-container {
   display: flex;
   justify-content: space-between;
@@ -127,8 +136,8 @@
     <div id="wpm">0 WPM</div>
     <div class="result">
   <span id="word">0</span> WORDS AND <span id="char">0</span> CHARACTERS
-  <div>
-    <label for="targetWord">Frequency Target Word:</label>
+  <div id="frequency">
+    <label for="targetWord" id="freqcontainer">Frequency:</label>
     <input type="text" id="targetWord" placeholder="Enter target word">
   </div>
   <div id="wordFrequency">0</div>
